@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>สมุดวาดลายมือ - KruYee</title>
+  <title>สมุดวาดลายมือ - วรรณพร</title>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -301,7 +301,7 @@
         <canvas id="board"></canvas>
       </div>
       <div class="footer-note">
-        <p>© 2025 โปรแกรมวาดลายมือ - พัฒนาโดยครูยีร์สอนคอม</p>
+        <p>พัฒนาโดย : **บาฮารี นาวี** | Tips: ใช้ <span class="kbd">P</span> ปากกา, <span class="kbd">E</span> ยางลบ</p>
       </div>
     </div>
   </div>
@@ -473,7 +473,15 @@
       }
 
       function saveAsPNG() {
-        const dataUrl = canvas.toDataURL('image/png');
+        const w = canvas.width, h = canvas.height;
+        const tmp = document.createElement('canvas');
+        tmp.width = w;
+        tmp.height = h;
+        const tctx = tmp.getContext('2d');
+        tctx.fillStyle = '#ffffff'; // กำหนดพื้นหลังเป็นสีขาว
+        tctx.fillRect(0, 0, w, h);
+        tctx.drawImage(canvas, 0, 0);
+        const dataUrl = tmp.toDataURL('image/png');
         const name = `drawing-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
         downloadDataUrl(dataUrl, name);
       }
@@ -484,7 +492,7 @@
         tmp.width = w;
         tmp.height = h;
         const tctx = tmp.getContext('2d');
-        tctx.fillStyle = '#ffffff';
+        tctx.fillStyle = '#ffffff'; // กำหนดพื้นหลังเป็นสีขาว
         tctx.fillRect(0, 0, w, h);
         tctx.drawImage(canvas, 0, 0);
         const dataUrl = tmp.toDataURL('image/jpeg', 0.95);
